@@ -62,14 +62,14 @@ def train(Dataset, Network, args):
     # network
     device = torch.device('cuda:5' if torch.cuda.is_available() else "cpu")
     print("Using {} device training.".format(device))
-    net = Network(train_cfg, block=Res_CBAM_Block,  nb_filter=[16, 32, 64, 128, 256], block_nums= [2, 2, 2, 2])
+    net = Network(train_cfg, block=Res_CBAM_Block,  nb_filter=[16, 32, 64, 128, 256], block_nums=[2, 2, 2, 2])
     net.to(device)
 
     # parameter
     base, head = [], []
     for name, param in net.named_parameters():
         head.append(param)
-    optimizer = torch.optim.SGD([{'params': base}, {'params': head}], lr=train_cfg.lr, momentum=train_cfg.momen,weight_decay=train_cfg.decay, nesterov=True)
+    optimizer = torch.optim.SGD([{'params': base}, {'params': head}], lr=train_cfg.lr, momentum=train_cfg.momen, weight_decay=train_cfg.decay, nesterov=True)
     net, optimizer = amp.initialize(net, optimizer, opt_level='O2')
     sw             = SummaryWriter(train_cfg.savepath)
     global_step    = 0
@@ -134,8 +134,8 @@ def train(Dataset, Network, args):
 
                 out1 = torch.round(torch.sigmoid(out1) * 255)
                 mask = mask.unsqueeze(1)
-                iou = miou(out1, mask)
-                test_iou += iou.item() * image.size(0)
+                iou  = miou(out1, mask)
+                test_iou     += iou.item() * image.size(0)
                 test_iou_num += image.size(0)
                 test_iou_all = test_iou / test_iou_num
                 test_tbar.set_description('Time:%s | Epoch:%d/%d | test loss=%.6f | test iou=%.6f'
@@ -157,7 +157,7 @@ def train(Dataset, Network, args):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='DNFNet')
+    parser = argparse.ArgumentParser(description='iSmallNet')
     # dataset
     parser.add_argument('--dataset', type=str, default='NUAA-SIRST',
                         help='dataset name:  NUAA-SIRST, NUDT-SIRST')

@@ -29,7 +29,7 @@ def split_map(args):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='DNFNet')
+    parser = argparse.ArgumentParser(description='iSmallNet')
     # dataset
     parser.add_argument('--dataset', type=str, default='NUAA-SIRST',
                         help='dataset name:  NUAA-SIRST, NUDT-SIRST')

@@ -20,15 +20,15 @@ from net import iSmall, Res_CBAM_Block
 
 
 def miou(pred, mask):
-    mini = 1
-    maxi = 1
+    mini  = 1
+    maxi  = 1
     nbins = 1
     predict = (pred > 0).float()
     intersection = predict * ((predict == mask).float())
 
     area_inter, _ = np.histogram(intersection.cpu(), bins=nbins, range=(mini, maxi))
-    area_pred, _ = np.histogram(predict.cpu(), bins=nbins, range=(mini, maxi))
-    area_lab, _ = np.histogram(mask.cpu(), bins=nbins, range=(mini, maxi))
+    area_pred, _  = np.histogram(predict.cpu(), bins=nbins, range=(mini, maxi))
+    area_lab, _   = np.histogram(mask.cpu(), bins=nbins, range=(mini, maxi))
     area_union = area_pred + area_lab - area_inter
     iou = 1 * area_inter / (np.spacing(1) + area_union)
 
@@ -42,21 +42,20 @@ class Test(object):
         datapath  = '../data/' + args.dataset
         outpath   = './out/' + args.dataset + '/model-best'
 
-        # test  dataloader
+        # test dataloader
         self.cfg    = Dataset.Config(datapath=datapath, snapshot=outpath, mode='test')
         self.data   = Dataset.Data(self.cfg)
         self.loader = DataLoader(self.data, batch_size=1, shuffle=False, num_workers=0)
 
         # network
         self.device = torch.device('cuda:5' if torch.cuda.is_available() else "cpu")
-        print("Using {} device training.".format(self.device))
-        self.net    = Network(self.cfg, block=Res_CBAM_Block,  nb_filter=[16, 32, 64, 128, 256], block_nums= [2, 2, 2, 2])
+        print("Using {} device testing.".format(self.device))
+        self.net    = Network(self.cfg, block=Res_CBAM_Block,  nb_filter=[16, 32, 64, 128, 256], block_nums=[2, 2, 2, 2])
         self.net.to(self.device)
 
     def save(self):
         test_iou = 0.0
         test_iou_num = 0
-        test_iou_all = 0
         test_tbar = tqdm(self.loader)
         self.net.eval()
         with torch.no_grad():
@@ -83,7 +82,7 @@ class Test(object):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='DNFNet')
+    parser = argparse.ArgumentParser(description='iSmallNet')
     # dataset
     parser.add_argument('--dataset', type=str, default='NUAA-SIRST',
                         help='dataset name:  NUAA-SIRST, NUDT-SIRST')
