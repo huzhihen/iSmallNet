@@ -2,9 +2,9 @@
 
 by Zhiheng Hu, Yongzhen Wang, Peng Li, Jie Qin, Mingqiang Wei
 
-论文地址：[iSmallNet: Multi-scale Nested Network with Label Decoupling for Infrared Small Target Detection](https://arxiv.org/abs/2210.16561)
+Paper url：[iSmallNet: Multi-scale Nested Network with Label Decoupling for Infrared Small Target Detection](https://arxiv.org/abs/2210.16561)
 
-项目地址：[https://github.com/huzhihen/iSmallNet](https://github.com/huzhihen/iSmallNet)
+Environmental configuration：[https://github.com/huzhihen/iSmallNet](https://github.com/huzhihen/iSmallNet)
 
 # Introduction
 
