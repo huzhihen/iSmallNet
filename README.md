@@ -67,7 +67,7 @@ python train.py --dataset [dataset-name]
 python test.py --dataset [dataset-name]
 ```
 
-**4. Test**
+**4. Visualization**
 
 ```
 python visualization.py --dataset [dataset-name]
